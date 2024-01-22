@@ -57,6 +57,33 @@ TEST_CASE( "Test set with size init", "[bitset]" ) {
     REQUIRE(b.asString().compare(s) == 0);
 }
 
+//Extra test 1
+TEST_CASE("Test toggle with 1 time","[bitset]"){
+    std::string s("010101");
+    Bitset b("101101");
+    b.toggle(0);
+    b.toggle(1);
+    b.toggle(2);
+    REQUIRE(b.good());
+    REQUIRE(b.asString().compare(s) == 0);
+}
+
+//Extra test 2
+TEST_CASE("Test test with negative index","[bitset]"){
+    Bitset b;
+    REQUIRE(b.good());
+    REQUIRE_FALSE(b.test(-1));
+    REQUIRE_FALSE(b.good());
+}
+
+//Extra test 3
+TEST_CASE("Test test with normal index","[bitset]"){
+    Bitset b("001000");
+    REQUIRE(b.good());
+    REQUIRE(b.test(2));
+    REQUIRE_FALSE(b.test(0));
+}
+
 TEST_CASE( "Test combined", "[bitset]" ) {
     std::string s((1<<15) + 3, '0');
     Bitset b(s);

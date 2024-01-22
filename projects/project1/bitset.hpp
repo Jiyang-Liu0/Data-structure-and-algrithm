@@ -7,45 +7,46 @@
 class Bitset{
 public:
 
-  // TODO COMMENT
+  // Default construction of a valid bitset of size 8, with all bits set to 0
   Bitset();
 
-  // TODO COMMENT
+  // Construction of a valid bitset of size N,with all bits set to 0; the bitset is invalid if N <= 0.
   Bitset(intmax_t size);
 
-  // TODO COMMENT
+  // Construction of a valid bitset initialized with a string of the form 00010000. If the string contains any character other than 0 or 1, the bitset is invalid.
   Bitset(const std::string & value);
 
-  // TODO COMMENT
+  // To free the memory of bitArray
   ~Bitset();
 
   Bitset(const Bitset & ) = delete;
   Bitset & operator=(const Bitset &) = delete;
 
-  // TODO COMMENT
+  // Return the size of the bitset
   intmax_t size() const;
 
-  // TODO COMMENT
+  // Determine if the bitset is valid
   bool good() const;
 
-  // TODO COMMENT
+  // Set the nth bit to 1, and if n is not in [0, N-1] then the bitset becomes invalid.
   void set(intmax_t index);
 
-  // TODO COMMENT
+  // Reset the nth bit to 0
   void reset(intmax_t index);
 
-  // TODO COMMENT
+  // Toggle the nth bit (1 to 0 or 0 to 1)
   void toggle(intmax_t index);
 
-  // TODO COMMENT
+  // Check if the nth bit is set (1)
   bool test(intmax_t index);
 
-  // TODO COMMENT
+  // Return the bitset as a std::string of characters 0 and 1 
   std::string asString() const;
 
 private:
-
-  // TODO
+  std::uint8_t* bitArray;
+  bool isValid;
+  intmax_t sizeofArray;
 };
 
 #endif
