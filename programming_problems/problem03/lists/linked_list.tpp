@@ -3,7 +3,9 @@
 template <typename T>
 LinkedList<T>::LinkedList()
 {
-  //TODO
+  size = 0;
+  head = nullptr;
+
 }
 
 template <typename T>
@@ -14,21 +16,22 @@ LinkedList<T>::~LinkedList()
 
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& x)
-{
-  //TODO
+{  
+  // item(x);
+  // next(nullptr);
 }
 
 template <typename T>
 LinkedList<T>& LinkedList<T>::operator=(LinkedList<T> x)
 {
-  //TODO
+  swap(x);
   return *this;
 }
 
 template <typename T>
 void LinkedList<T>::swap(LinkedList& x) 
 {
-  //TODO
+
 }
 
 template <typename T>
@@ -48,8 +51,17 @@ std::size_t LinkedList<T>::getLength() const noexcept
 template <typename T>
 bool LinkedList<T>::insert(std::size_t position, const T& item)
 {
-  //TODO
-  return true;
+  if (position == 0){
+    Node<T>* temp = new Node<T>(item);
+    temp->next = head;
+    head = temp;
+  } else {
+    Node<T>* loc = find(position);
+    Node<T>* temp = new Node<T>(item);
+    temp->next = loc->next;
+    loc->next = temp;
+    size++;
+  }
 }
 
 template <typename T>

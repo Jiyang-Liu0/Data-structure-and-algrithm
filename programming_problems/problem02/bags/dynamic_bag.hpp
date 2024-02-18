@@ -44,8 +44,14 @@ public:
   bool contains(const T& item) const;
 
 private:
+  // Initial capacity for items
+  int arraySize;
 
-  // TODO
+  // Internal array data structure
+  T* items;
+
+  // Current count of items
+  int itemCount;
 };
 
 #include "dynamic_bag.tpp"

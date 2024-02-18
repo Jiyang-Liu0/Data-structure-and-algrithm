@@ -35,8 +35,11 @@ public:
   static const std::size_t maxsize = 100;
 
 private:
+  // Internal array data structure
+  T items[maxsize];
 
-  // TODO
+  // Current count of items
+  std::size_t itemCount;
 };
 
 #include "limited_size_bag.tpp"

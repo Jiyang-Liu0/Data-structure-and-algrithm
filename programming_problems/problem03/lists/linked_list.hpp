@@ -46,8 +46,9 @@ public:
 
 private:
 
-  //TODO
-  
+  std::size_t size;
+  T* head;
+  T* tail;
 };
 
 #include "linked_list.tpp"
