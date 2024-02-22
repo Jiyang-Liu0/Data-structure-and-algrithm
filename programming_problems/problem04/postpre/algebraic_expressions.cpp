@@ -43,6 +43,20 @@ bool isPost(string s) {
 
 void convert(string &postfix, string &prefix) {
 
-  // TODO
+  if (postfix.length() == 1) {
+    prefix = postfix;
+  } else {
+    char op = postfix[postfix.length()-1]; // should start with an operator
+    int endFirst = endPost(postfix, postfix.length()-2);
+    string operand1;
+    string tempStr1 = postfix.substr(endFirst, postfix.length()-2-endFirst+1);
+    convert(tempStr1, operand1);
+
+    int endSecond = endPost(postfix, endFirst-1);
+    string operand2;
+    string tempStr2 = postfix.substr(endSecond, endFirst-endSecond);
+    convert(tempStr2, operand2);
+    prefix = op + operand2 + operand1;
+  }
   
 }

@@ -46,7 +46,9 @@ public:
 
 private:
 
-  // TODO
+  std::size_t listCount;
+
+  T* items;
   
 };
 
