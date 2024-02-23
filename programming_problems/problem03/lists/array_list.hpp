@@ -49,6 +49,8 @@ private:
   std::size_t listCount;
 
   T* items;
+
+  std::size_t listSize;
   
 };
 

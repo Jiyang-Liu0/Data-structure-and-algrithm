@@ -3,22 +3,44 @@
 template <typename T>
 LinkedList<T>::LinkedList()
 {
-  size = 0;
-  head = nullptr;
-
+  itemCount = 0;
+  headPtr = nullptr;
 }
 
 template <typename T>
 LinkedList<T>::~LinkedList()
 {
-  //TODO
+  while (headPtr != nullptr)
+  {
+    Node<T>* temp=headPtr;
+    headPtr=headPtr->getNext();
+    delete temp;
+    temp=nullptr;
+  }
 }
 
 template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& x)
 {  
-  // item(x);
-  // next(nullptr);
+  itemCount = x.getLength();
+  Node<T>* lastNodePtr = nullptr;
+
+  for (int i=0;i<itemCount;i++)
+  {
+    Node<T>* newNodePtr = new Node<T>();
+    newNodePtr->setItem(x.getEntry(i));
+    if (i==0)
+    {
+      headPtr = newNodePtr;
+    }
+
+    if (lastNodePtr!=nullptr)
+    {
+      lastNodePtr->setNext(newNodePtr);
+    }
+    
+    lastNodePtr = newNodePtr;
+  }
 }
 
 template <typename T>
@@ -31,61 +53,119 @@ LinkedList<T>& LinkedList<T>::operator=(LinkedList<T> x)
 template <typename T>
 void LinkedList<T>::swap(LinkedList& x) 
 {
-
+  std::swap(itemCount,x.itemCount);
+  std::swap(headPtr,x.headPtr);
 }
 
 template <typename T>
 bool LinkedList<T>::isEmpty() const noexcept
 {
-  //TODO
-  return true;
+  return (itemCount==0);
 }
 
 template <typename T>
 std::size_t LinkedList<T>::getLength() const noexcept
 {
-  //TODO
-  return 0;
+  return itemCount;
+}
+
+template <typename T>
+Node<T>* LinkedList<T>::find(std::size_t position) const
+{
+  Node<T>* ptr = headPtr;
+  if (position>=itemCount || position<0)
+  {
+    return nullptr;
+  }
+
+  for (int i=0;i<position;i++)
+  {
+    ptr = ptr->getNext();
+  }
+
+  return ptr;
 }
 
 template <typename T>
 bool LinkedList<T>::insert(std::size_t position, const T& item)
 {
+  if(position<0 || position>itemCount){
+    return false;
+  }
   if (position == 0){
     Node<T>* temp = new Node<T>(item);
-    temp->next = head;
-    head = temp;
+    temp->setNext(headPtr);
+    headPtr = temp;
+    itemCount++;
   } else {
-    Node<T>* loc = find(position);
+    Node<T>* loc = find(position-1);
     Node<T>* temp = new Node<T>(item);
-    temp->next = loc->next;
-    loc->next = temp;
-    size++;
+    temp->setNext(loc->getNext());
+    loc->setNext(temp);
+    itemCount++;
   }
+  return true;
 }
 
 template <typename T>
 bool LinkedList<T>::remove(std::size_t position)
 {
-  //TODO
+  if(position<0 || position>=itemCount){
+    return false;
+  }
+
+  if (position==0)
+  {
+    Node<T>* loc = headPtr;
+    headPtr = headPtr->getNext();
+    delete loc;
+    loc = nullptr;
+    itemCount--;
+    return true;
+  }
+
+  Node<T>* prev=find(position-1);
+  Node<T>* current= prev->getNext();
+  prev->setNext(current->getNext());
+  delete current;
+  current = nullptr;
+  itemCount--;
+
   return true;
 }
 
 template <typename T>
 void LinkedList<T>::clear()
 {
-  //TODO
+  while(headPtr!=nullptr)
+  {
+    Node<T>* temp = headPtr;
+    headPtr = headPtr->getNext();
+    delete temp;
+    temp = nullptr;
+  }
+  itemCount = 0;
 }
 
 template <typename T>
 T LinkedList<T>::getEntry(std::size_t position) const
 {
-  //TODO
-  return T();
+  if(position<0 || position>=itemCount){
+    return T();
+  }
+  
+  Node<T>* loc = find(position);
+  return loc->getItem();
 }
 
 template <typename T>
 void LinkedList<T>::setEntry(std::size_t position, const T& newValue)
 {
-  //TODO
+  if(position<0 || position>=itemCount){
+    return;
+  }
+  
+  Node<T>* loc = find(position);
+  loc->setItem(newValue);
+  return;
 }
