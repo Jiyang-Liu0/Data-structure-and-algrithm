@@ -28,8 +28,14 @@ private:
 	Stack<std::string>* parseStack;
 	/** Vector to store the tokenized input string and the token types */
 	std::vector<TokenStruct> tokenizedInputVector;
-  
+
   // You can add or change the private fields.
+
+	std::string extractTagName(const std::string &str);
+	bool isNotValidName(const std::string &str);
+	/** trim the leading and tailing spaces for a string */
+	std::string trim(const std::string &str);
+	bool isParseSuccess;
 
 public:
 	/** The class constructor.

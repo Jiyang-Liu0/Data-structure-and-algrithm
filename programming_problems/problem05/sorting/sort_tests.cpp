@@ -15,7 +15,10 @@ TEST_CASE("Test case", "sorting"){
   lst.insert(3, 25);
   lst.insert(4, 11);
 
-  LinkedList<int> sorted = sort(lst);
+  // LinkedList<int> sorted = sort(lst);
+  // LinkedList<int> sorted = mergeSort(lst,0,4);
+  mergeSort(lst,0,4);
+  LinkedList<int> sorted=lst;
 
   // check sorted list
   REQUIRE(sorted.getEntry(0) == 4);

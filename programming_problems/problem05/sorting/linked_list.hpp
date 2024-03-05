@@ -21,7 +21,6 @@ public:
   // copy assignment
   LinkedList& operator=(LinkedList x);
 
-  // swap
   void swap(LinkedList& x);
   
   // determine if a list is empty
@@ -45,10 +44,11 @@ public:
   // set the value of the item at position 
   void setEntry(std::size_t position, const T& newValue);
 
-private:
+  Node<T>* find(std::size_t position) const;
 
-  //TODO
-  
+private:
+  Node<T>* headPtr;
+  std::size_t itemCount;
 };
 
 #include "linked_list.tpp"

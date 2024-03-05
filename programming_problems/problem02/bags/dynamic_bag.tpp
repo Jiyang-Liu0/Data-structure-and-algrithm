@@ -24,16 +24,16 @@ DynamicBag<T>::DynamicBag(const DynamicBag<T>& x){
 template<typename T>
 DynamicBag<T>& DynamicBag<T>::operator=(DynamicBag<T> x)
 { 
-  items = new T[x.arraySize];
-  itemCount = x.itemCount;
-  for (int i=0;i<x.getCurrentSize();i++){
-    items[i] = x.items[i];
-  }
+  swap(x);
   return *this;
 }
 
 template<typename T>
-void DynamicBag<T>::swap(DynamicBag<T>& x){}
+void DynamicBag<T>::swap(DynamicBag<T>& x){
+  std::swap(itemCount,x.itemCount);
+  std::swap(items,x.items);
+
+}
 
 template<typename T>
 bool DynamicBag<T>::add(const T& item)

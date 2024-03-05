@@ -42,12 +42,23 @@ TEST_CASE( "Test Stack push and size", "[ADT Stack]" )
 		}
 }
 
-TEST_CASE( "Test XMLParser tokenizeInputString", "[XMLParser]" )
+TEST_CASE( "Test XMLParser tokenizeInputString2", "[XMLParser]" )
 {
 	   INFO("Hint: tokenize single element test of XMLParse");
 		// Create an instance of XMLParse
 		XMLParser myXMLParser;
 		string testString = "<test>stuff</test>";
+		bool success;
+		success = myXMLParser.tokenizeInputString(testString);
+		REQUIRE(success);
+}
+
+TEST_CASE( "Test XMLParser tokenizeInputString", "[XMLParser]" )
+{
+	   INFO("Hint: tokenize single element test, with wrong sequence");
+		// Create an instance of XMLParse
+		XMLParser myXMLParser;
+		string testString = "</test>stuff<test>";
 		bool success;
 		success = myXMLParser.tokenizeInputString(testString);
 		REQUIRE(success);
@@ -198,4 +209,25 @@ TEST_CASE( "Test XMLParser Final Handout-0", "[XMLParser]" )
 		REQUIRE(myXMLParser.frequencyElementName("size") == 6);
 		REQUIRE(myXMLParser.containsElementName("color_swatch"));
 		REQUIRE(myXMLParser.frequencyElementName("color_swatch") == 15);
+}
+
+TEST_CASE( "Test XMLParser parseTokenizedInput Handout-2", "[XMLParser]" )
+{
+	   INFO("Hint: tokenize with not match start and end");
+		// Create an instance of XMLParse
+		XMLParser myXMLParser;
+		string testString = "<test myattr='abcdef'>stuff<tag1> hij </tag2></test>";
+		bool success;
+		success = myXMLParser.tokenizeInputString(testString);
+		REQUIRE(success);
+		std::vector<TokenStruct> result = {TokenStruct{StringTokenType::START_TAG, std::string("test")},
+											TokenStruct{StringTokenType::CONTENT, std::string("stuff")},
+											TokenStruct{StringTokenType::START_TAG, std::string("tag1")},
+											TokenStruct{StringTokenType::CONTENT, std::string("hij")},
+											TokenStruct{StringTokenType::END_TAG, std::string("tag2")},
+											TokenStruct{StringTokenType::END_TAG, std::string("test")}};
+		std::vector<TokenStruct> output = myXMLParser.returnTokenizedInput();
+		REQUIRE(result.size() == output.size());
+		success = myXMLParser.parseTokenizedInput();
+		REQUIRE_FALSE(success);
 }
