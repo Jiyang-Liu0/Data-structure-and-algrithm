@@ -42,6 +42,24 @@ TEST_CASE( "Test Stack push and size", "[ADT Stack]" )
 		}
 }
 
+TEST_CASE( "Test Stack peek and pop", "[ADT Stack]" )
+{
+	   INFO("Hint: testing Stack peek() and pop()");
+		// Create a Stack to hold ints
+		Stack<int> intStack;
+		int testSize = 3;
+		bool success;
+		for (int i=0; i<testSize; i++) {
+			success = intStack.push(i);
+			REQUIRE(success);
+		}
+		for (int i=testSize-1; i>=0; i--) {
+			REQUIRE(intStack.peek()==i);
+			success = intStack.pop();
+			REQUIRE(success);
+		}
+}
+
 TEST_CASE( "Test XMLParser tokenizeInputString2", "[XMLParser]" )
 {
 	   INFO("Hint: tokenize single element test of XMLParse");
@@ -159,6 +177,17 @@ TEST_CASE( "Test XMLParser tokenizeInputString Handout-1", "[XMLParser]" )
 		}
 }
 
+TEST_CASE( "Test XMLParser tokenizeInputString Handout-2", "[XMLParser]" )
+{
+	   INFO("Hint: tokenize invalid elements name test of XMLParse");
+		// Create an instance of XMLParse
+		XMLParser myXMLParser;
+		string testString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><Note src='gmail'>  <1From>Tom</1From> <To>Alice</To> </Note>";
+		bool success;
+		success = myXMLParser.tokenizeInputString(testString);
+		REQUIRE_FALSE(success);
+}
+
 TEST_CASE( "Test XMLParser parseTokenizedInput Handout-0", "[XMLParser]" )
 {
 	   INFO("Hint: tokenize single element test of XMLParse");
@@ -182,6 +211,27 @@ TEST_CASE( "Test XMLParser parseTokenizedInput Handout-0", "[XMLParser]" )
 			REQUIRE(result[i].tokenType == output[i].tokenType);
 			REQUIRE(result[i].tokenString.compare(output[i].tokenString) == 0);
 		}
+}
+
+TEST_CASE( "Test XMLParser parseTokenizedInput Handout-2", "[XMLParser]" )
+{
+	   INFO("Hint: tokenize with not match start and end");
+		// Create an instance of XMLParse
+		XMLParser myXMLParser;
+		string testString = "<test myattr='abcdef'>stuff<tag1> hij </tag2></test>";
+		bool success;
+		success = myXMLParser.tokenizeInputString(testString);
+		REQUIRE(success);
+		std::vector<TokenStruct> result = {TokenStruct{StringTokenType::START_TAG, std::string("test")},
+											TokenStruct{StringTokenType::CONTENT, std::string("stuff")},
+											TokenStruct{StringTokenType::START_TAG, std::string("tag1")},
+											TokenStruct{StringTokenType::CONTENT, std::string("hij")},
+											TokenStruct{StringTokenType::END_TAG, std::string("tag2")},
+											TokenStruct{StringTokenType::END_TAG, std::string("test")}};
+		std::vector<TokenStruct> output = myXMLParser.returnTokenizedInput();
+		REQUIRE(result.size() == output.size());
+		success = myXMLParser.parseTokenizedInput();
+		REQUIRE_FALSE(success);
 }
 
 TEST_CASE( "Test XMLParser Final Handout-0", "[XMLParser]" )
@@ -211,23 +261,3 @@ TEST_CASE( "Test XMLParser Final Handout-0", "[XMLParser]" )
 		REQUIRE(myXMLParser.frequencyElementName("color_swatch") == 15);
 }
 
-TEST_CASE( "Test XMLParser parseTokenizedInput Handout-2", "[XMLParser]" )
-{
-	   INFO("Hint: tokenize with not match start and end");
-		// Create an instance of XMLParse
-		XMLParser myXMLParser;
-		string testString = "<test myattr='abcdef'>stuff<tag1> hij </tag2></test>";
-		bool success;
-		success = myXMLParser.tokenizeInputString(testString);
-		REQUIRE(success);
-		std::vector<TokenStruct> result = {TokenStruct{StringTokenType::START_TAG, std::string("test")},
-											TokenStruct{StringTokenType::CONTENT, std::string("stuff")},
-											TokenStruct{StringTokenType::START_TAG, std::string("tag1")},
-											TokenStruct{StringTokenType::CONTENT, std::string("hij")},
-											TokenStruct{StringTokenType::END_TAG, std::string("tag2")},
-											TokenStruct{StringTokenType::END_TAG, std::string("test")}};
-		std::vector<TokenStruct> output = myXMLParser.returnTokenizedInput();
-		REQUIRE(result.size() == output.size());
-		success = myXMLParser.parseTokenizedInput();
-		REQUIRE_FALSE(success);
-}
