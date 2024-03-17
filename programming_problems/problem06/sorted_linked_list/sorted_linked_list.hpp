@@ -51,8 +51,7 @@ public:
   long int getPosition(const T& item);
 
 private:
-
-  // TODO
+  LinkedList<T> sort(LinkedList<T> list);
 
 };
 

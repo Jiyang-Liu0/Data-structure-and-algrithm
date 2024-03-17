@@ -23,6 +23,7 @@ template <typename T>
 LinkedList<T>::LinkedList(const LinkedList<T>& x)
 {  
   itemCount = x.getLength();
+  headPtr = x.headPtr;
   Node<T>* lastNodePtr = nullptr;
 
   for (int i=0;i<itemCount;i++)
