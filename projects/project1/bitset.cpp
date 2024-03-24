@@ -45,7 +45,7 @@ Bitset::Bitset(const std::string & value) {
 }
 
 Bitset::~Bitset() {
-    // delete[] bitArray;
+    delete[] bitArray;
 }
 
 intmax_t Bitset::size() const{

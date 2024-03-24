@@ -3,6 +3,7 @@
 #define _QUEUE_HPP_
 
 #include "abstract_queue.hpp"
+#include "list.hpp"
 
 template <typename T, typename L>
 class Queue: public AbstractQueue<T>

@@ -23,7 +23,7 @@ endif()
 set(TEST_SOURCE
   test_queue.cpp)
 
-set(PATHFINDER_SOURCE pathfinder.cpp)
+set(PATHFINDER_SOURCE pathfinder.cpp problem.hpp problem.tpp)
 
 set(SOURCE ${QUEUE_SOURCE} ${TEST_SOURCE} ${PATHFINDER_SOURCE})
 
