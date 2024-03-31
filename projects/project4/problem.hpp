@@ -9,9 +9,9 @@ struct State
     int row_idx;
     int col_idx;
     Pixel pixel;
-    bool operator<(const State& other) const {
-        return row_idx < other.row_idx || (row_idx == other.row_idx && col_idx < other.col_idx);
-    }
+    // bool operator<(const State& other) const {
+    //     return row_idx < other.row_idx || (row_idx == other.row_idx && col_idx < other.col_idx);
+    // }
 };
 
 template <typename T>
