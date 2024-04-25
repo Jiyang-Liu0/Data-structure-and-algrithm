@@ -37,7 +37,9 @@ public:
 private:
 
   std::vector<State<T>> queue;
-  
+
+  // Return number of swaps.
+  std::size_t sort(std::size_t rootIndex);
 };
 
 #include "frontier_queue.tpp"

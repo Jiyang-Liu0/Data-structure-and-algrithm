@@ -21,6 +21,7 @@ private:
   std::size_t g {0};
   std::size_t h {0};
   std::size_t f {0};
+
 };
 
 #include "state.tpp"
