@@ -55,8 +55,7 @@ std::pair<bool, std::size_t> PuzzleSolver::search() {
       std::tie(ok, result) = value.apply(static_cast<Puzzle::Action>(a));
 
       if (ok) {
-        // bool in_explored = (explored.find(result) != explored.end());
-        bool in_explored = (explored.count(result) >0);
+        bool in_explored = (explored.find(result) != explored.end());
         bool in_frontier = frontier.contains(result);
         if (!(in_explored || in_frontier)) {
           frontier.push(result, cost + 1, result.heuristic(goal));
